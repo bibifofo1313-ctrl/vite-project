@@ -111,8 +111,8 @@ form.addEventListener('submit', (event) => {
   let cumulative = -totalCost.value;
   let paybackMonth = null;
   const tableRows = [];
-
   const maxMonths = 240;
+
   for (let month = 1; month <= maxMonths; month += 1) {
     let uplift = netDiff;
     if (ramp > 0 && month <= ramp) {
@@ -129,17 +129,20 @@ form.addEventListener('submit', (event) => {
 
   const paybackYears = paybackMonth ? paybackMonth / 12 : null;
   const breakEvenDate = paybackMonth ? formatMonthYear(addMonths(new Date(), paybackMonth)) : '—';
-  const taxNote = taxMode === 'gross'
-    ? 'הערכת הנטו חושבה באופן גס לפי מקדם 0.78, ללא מדרגות מס.'
-    : 'החישוב מניח שהשכר שהוזן הוא נטו.';
+  const taxNote =
+    taxMode === 'gross'
+      ? 'הערכת הנטו חושבה באופן גס לפי מקדם 0.78, ללא מדרגות מס.'
+      : 'החישוב מניח שהשכר שהוזן הוא נטו.';
 
   const rowsHtml = tableRows
-    .map((row) => `
+    .map(
+      (row) => `
       <tr>
         <td>${row.month}</td>
         <td>${formatNIS(row.cumulative)}</td>
       </tr>
-    `)
+    `
+    )
     .join('');
 
   resultPanel.querySelector('.result-panel__content').innerHTML = `
@@ -173,19 +176,72 @@ const content = createElement('<div class="calc-grid"></div>');
 const formSection = createElement('<section class="section"></section>');
 formSection.append(
   createElement('<h2>הזנת נתונים</h2>'),
-  createElement('<p>הכניסו את העלות הכוללת והפרשי השכר כדי לקבל זמן החזר מדויק.</p>'),
+  createElement('<p>תוך דקה תראו זמן החזר, תאריך איזון משוער וטבלת הצטברות חודשית.</p>'),
   form
 );
 
 const resultSection = createElement('<section class="section"></section>');
 resultSection.append(resultPanel);
 
-content.append(formSection, resultSection);
+const interpretationSection = createElement(`
+  <section class="section">
+    <h2>איך לפרש את התוצאות?</h2>
+    <p>
+      חודשי ההחזר מראים מתי הפער בשכר מכסה את העלות הכוללת. תאריך האיזון מסייע להבין
+      באיזה חודש צפוי להיות שינוי חיובי. הטבלה מציגה את ההצטברות ב‑60 החודשים הראשונים.
+    </p>
+    <ul>
+      <li>אם ההפרש החודשי נמוך, זמן ההחזר יגדל.</li>
+      <li>רמפה ארוכה יותר דוחה את נקודת האיזון.</li>
+    </ul>
+  </section>
+`);
+
+const faqSection = createElement(`
+  <section class="section" id="faq">
+    <h2>שאלות נפוצות</h2>
+    <div class="faq">
+      <details>
+        <summary>למה יש רמפה?</summary>
+        <p>רמפה מדמה תקופת הסתגלות שבה השכר עולה בהדרגה אחרי סיום הלימודים.</p>
+      </details>
+      <details>
+        <summary>מה ההבדל בין נטו לברוטו?</summary>
+        <p>במצב ברוטו אנו משתמשים בהערכה בסיסית לנטו כדי לאפשר השוואה מהירה.</p>
+      </details>
+      <details>
+        <summary>מה אם השכר אחרי הלימודים לא גבוה יותר?</summary>
+        <p>אם ההפרש אינו חיובי לא מתקבל החזר השקעה לפי הנתונים שהוזנו.</p>
+      </details>
+      <details>
+        <summary>האם החישוב כולל העלאות שכר עתידיות?</summary>
+        <p>לא. החישוב שמרני ומניח שכר קבוע לאחר תקופת הרמפה.</p>
+      </details>
+      <details>
+        <summary>כמה זמן נבדקת ההצטברות?</summary>
+        <p>המחשבון מחשב החזר עד 240 חודשים ומציג טבלה מפורטת ל‑60 החודשים הראשונים.</p>
+      </details>
+    </div>
+  </section>
+`);
+
+const linksSection = createElement(`
+  <section class="section">
+    <h2>להמשך תכנון</h2>
+    <p>עברו למאמר ההסבר או בדקו את העלות הכוללת לפני חישוב ההחזר.</p>
+    <div class="card__actions">
+      <a class="card__link" href="/articles/degree-roi-payback.html">מאמר על ROI וזמן החזר</a>
+      <a class="card__link card__link--secondary" href="/calculators/total-study-cost.html">מחשבון עלות לימודים</a>
+    </div>
+  </section>
+`);
+
+content.append(formSection, resultSection, interpretationSection, faqSection, linksSection);
 
 renderLayout({
-  title: 'מחשבון ROI וזמן החזר על תואר',
-  subtitle: 'ראו תוך כמה חודשים ההשקעה בלימודים מוחזרת ומה קורה לאורך זמן.',
-  intro: 'המחשבון כולל רמפה לשיפור שכר הדרגתי והערכת מס בסיסית במידת הצורך.',
+  title: 'מתי התואר מחזיר את עצמו?',
+  subtitle: 'מחשבון ROI ללימודים עם רמפה והערכת מס בסיסית.',
+  intro: 'הזינו עלות ושכר לפני/אחרי וקבלו זמן החזר, תאריך איזון וטבלת הצטברות חודשית.',
   breadcrumbs: [
     { label: 'דף הבית', href: '/' },
     { label: 'מחשבונים', href: '/calculators.html' },

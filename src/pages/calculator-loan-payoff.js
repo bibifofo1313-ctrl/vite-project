@@ -2,7 +2,7 @@
 import { renderFormField, renderRadioGroup } from '../components/form-field.js';
 import { renderResultPanel } from '../components/result-panel.js';
 import { createElement } from '../lib/dom.js';
-import { formatNIS, formatNumber } from '../lib/format.js';
+import { formatNIS } from '../lib/format.js';
 import { readNumberField, readRadioField, clearErrors, applyErrors } from '../lib/validation.js';
 
 const form = document.createElement('form');
@@ -148,7 +148,8 @@ form.addEventListener('submit', (event) => {
         `;
         return;
       }
-      const monthsRaw = -Math.log(1 - (monthlyRate * principal.value) / paymentValue) / Math.log(1 + monthlyRate);
+      const monthsRaw =
+        -Math.log(1 - (monthlyRate * principal.value) / paymentValue) / Math.log(1 + monthlyRate);
       monthsValue = Math.ceil(monthsRaw);
     }
   } else {
@@ -210,19 +211,72 @@ const content = createElement('<div class="calc-grid"></div>');
 const formSection = createElement('<section class="section"></section>');
 formSection.append(
   createElement('<h2>פירעון הלוואה</h2>'),
-  createElement('<p>בחרו האם לחשב תשלום חודשי או משך הלוואה רצוי.</p>'),
+  createElement('<p>תוך דקה תקבלו תשלום חודשי או משך הלוואה כולל ריבית וטבלת אמורטיזציה.</p>'),
   form
 );
 
 const resultSection = createElement('<section class="section"></section>');
 resultSection.append(resultPanel);
 
-content.append(formSection, resultSection);
+const interpretationSection = createElement(`
+  <section class="section">
+    <h2>איך לפרש את התוצאות?</h2>
+    <p>
+      התשלום החודשי מציג כמה תשלמו בכל חודש, והמשך המשוער מראה מתי ההלוואה נסגרת.
+      סך הריבית מאפשר להשוות בין תרחישים עם תשלום חודשי נמוך או גבוה יותר.
+    </p>
+    <ul>
+      <li>תשלום גבוה יותר מקצר את משך ההלוואה ומפחית ריבית.</li>
+      <li>ריבית שנתית גבוהה מגדילה את הסכום הכולל.</li>
+    </ul>
+  </section>
+`);
+
+const faqSection = createElement(`
+  <section class="section" id="faq">
+    <h2>שאלות נפוצות</h2>
+    <div class="faq">
+      <details>
+        <summary>מה קורה אם התשלום לא מכסה את הריבית?</summary>
+        <p>המחשבון יתריע אם התשלום החודשי נמוך מדי וההלוואה לא תיסגר.</p>
+      </details>
+      <details>
+        <summary>האם אפשר לשלם יותר כל חודש?</summary>
+        <p>כן. תשלום גבוה יותר מקצר את משך ההלוואה ומפחית ריבית כוללת.</p>
+      </details>
+      <details>
+        <summary>איך לחשב ריבית משתנה?</summary>
+        <p>הזינו ריבית ממוצעת משוערת ואז בדקו גם תרחיש שמרני עם ריבית גבוהה יותר.</p>
+      </details>
+      <details>
+        <summary>האם ניתן לפרוע מוקדם?</summary>
+        <p>כן, פירעון מוקדם מקטין את סך הריבית. כדאי לוודא שאין קנסות.</p>
+      </details>
+      <details>
+        <summary>למה מוצגת רק טבלה קצרה?</summary>
+        <p>הטבלה מציגה את 12 החודשים הראשונים לצורך הבנה מהירה של מבנה התשלום.</p>
+      </details>
+    </div>
+  </section>
+`);
+
+const linksSection = createElement(`
+  <section class="section">
+    <h2>להמשך תכנון</h2>
+    <p>קראו את המאמר המשלים או בדקו מהי העלות הכוללת של לימודים.</p>
+    <div class="card__actions">
+      <a class="card__link" href="/articles/student-loan-payoff.html">מאמר על פירעון הלוואת סטודנטים</a>
+      <a class="card__link card__link--secondary" href="/calculators/total-study-cost.html">מחשבון עלות לימודים</a>
+    </div>
+  </section>
+`);
+
+content.append(formSection, resultSection, interpretationSection, faqSection, linksSection);
 
 renderLayout({
-  title: 'מחשבון פירעון הלוואת סטודנטים',
-  subtitle: 'חישוב תשלום חודשי או משך הלוואה מדויק עם ריבית.',
-  intro: 'מחשב ריבית אפקטיבית חודשית ומציג טבלת אמורטיזציה קצרה.',
+  title: 'כמה אשלם על הלוואת סטודנטים?',
+  subtitle: 'מחשבון פירעון הלוואה עם ריבית וטבלת אמורטיזציה.',
+  intro: 'בחרו מצב חישוב וקבלו תשלום חודשי, משך הלוואה וסך ריבית בצורה ברורה.',
   breadcrumbs: [
     { label: 'דף הבית', href: '/' },
     { label: 'מחשבונים', href: '/calculators.html' },

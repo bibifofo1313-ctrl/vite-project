@@ -47,6 +47,15 @@ const content = createElement(`
         </details>
       </div>
     </section>
+
+    <section class="section">
+      <h2>להמשך תכנון</h2>
+      <p>חזרו למחשבון ההשוואה או בדקו לימודים מול עבודה עכשיו.</p>
+      <div class="card__actions">
+        <a class="card__link" href="/calculators/path-comparison.html">למחשבון השוואת מסלולים</a>
+        <a class="card__link card__link--secondary" href="/calculators/study-vs-work-now.html">לימודים מול עבודה</a>
+      </div>
+    </section>
   </div>
 `);
 

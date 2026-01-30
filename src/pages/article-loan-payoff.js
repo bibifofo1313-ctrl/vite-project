@@ -47,6 +47,15 @@ const content = createElement(`
         </details>
       </div>
     </section>
+
+    <section class="section">
+      <h2>להמשך תכנון</h2>
+      <p>חזרו למחשבון או בדקו את עלות הלימודים לפני קבלת הלוואה.</p>
+      <div class="card__actions">
+        <a class="card__link" href="/calculators/student-loan-payoff.html">למחשבון פירעון הלוואה</a>
+        <a class="card__link card__link--secondary" href="/calculators/total-study-cost.html">מחשבון עלות לימודים</a>
+      </div>
+    </section>
   </div>
 `);
 

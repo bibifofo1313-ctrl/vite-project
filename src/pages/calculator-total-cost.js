@@ -161,19 +161,72 @@ const content = createElement('<div class="calc-grid"></div>');
 const formSection = createElement('<section class="section"></section>');
 formSection.append(
   createElement('<h2>הזנת נתונים</h2>'),
-  createElement('<p>מלאו את העלויות המרכזיות כדי לקבל תמונת עלות מלאה ללימודים.</p>'),
+  createElement('<p>תוך דקה תקבלו עלות כוללת וממוצע חודשי אחרי קיזוז הכנסה בזמן הלימודים.</p>'),
   form
 );
 
 const resultSection = createElement('<section class="section"></section>');
 resultSection.append(resultPanel);
 
-content.append(formSection, resultSection);
+const interpretationSection = createElement(`
+  <section class="section">
+    <h2>איך לפרש את התוצאות?</h2>
+    <p>
+      העלות הכוללת מציגה את כל ההוצאות לאורך התקופה, בניכוי הכנסה חודשית. הממוצע החודשי
+      עוזר להשוות בין מסלולים שונים ולבדוק התאמה ליכולת הכלכלית.
+    </p>
+    <ul>
+      <li>עלות חודשית נטו מציגה את הפער אחרי הכנסה במהלך הלימודים.</li>
+      <li>טווחים שמרניים/אופטימיים עוזרים להבין רגישות לשינויים בהוצאות.</li>
+    </ul>
+  </section>
+`);
+
+const faqSection = createElement(`
+  <section class="section" id="faq">
+    <h2>שאלות נפוצות</h2>
+    <div class="faq">
+      <details>
+        <summary>האם לכלול מלגות או הנחות?</summary>
+        <p>כן. הפחיתו את סכום המלגה משכר הלימוד השנתי כדי לקבל עלות נטו.</p>
+      </details>
+      <details>
+        <summary>מה עושים אם השכירות משתנה לאורך השנים?</summary>
+        <p>מומלץ להזין ממוצע חודשי או להשתמש בטווח השמרני כדי לקבל תמונה זהירה.</p>
+      </details>
+      <details>
+        <summary>האם לכלול הוצאות חד-פעמיות כמו מחשב?</summary>
+        <p>כן, הכניסו אותן בשדה ההוצאות השנתיות הנוספות.</p>
+      </details>
+      <details>
+        <summary>איך לחשב הכנסה לא קבועה?</summary>
+        <p>הזינו ממוצע חודשי זהיר על בסיס התקופה האחרונה.</p>
+      </details>
+      <details>
+        <summary>מה המשמעות של הטווחים שמרני ואופטימי?</summary>
+        <p>הטווחים מציגים סטייה של ±10% מהעלות הכוללת כדי להבין רגישות.</p>
+      </details>
+    </div>
+  </section>
+`);
+
+const linksSection = createElement(`
+  <section class="section">
+    <h2>להמשך תכנון</h2>
+    <p>המשיכו לקרוא את המאמר המשלים או עברו למחשבון הבא בתהליך.</p>
+    <div class="card__actions">
+      <a class="card__link" href="/articles/total-study-cost.html">מאמר על עלות לימודים</a>
+      <a class="card__link card__link--secondary" href="/calculators/degree-roi-payback.html">מחשבון ROI לתואר</a>
+    </div>
+  </section>
+`);
+
+content.append(formSection, resultSection, interpretationSection, faqSection, linksSection);
 
 renderLayout({
-  title: 'מחשבון עלות לימודים כוללת',
-  subtitle: 'חישוב ברור של כמה הלימודים באמת יעלו לכם לאורך כל התקופה.',
-  intro: 'מחשבונים אחרים מתמקדים רק בשכר לימוד. כאן משלבים גם דיור, מחייה והכנסה בזמן לימודים כדי להגיע לתמונה אמיתית.',
+  title: 'כמה יעלו הלימודים שלי באמת?',
+  subtitle: 'מחשבון עלות לימודים כוללת בישראל לשכר לימוד, דיור, מחייה והכנסה.',
+  intro: 'הזינו עלויות בסיסיות וקבלו תמונת עלות מלאה כולל ממוצע חודשי וטווחי רגישות.',
   breadcrumbs: [
     { label: 'דף הבית', href: '/' },
     { label: 'מחשבונים', href: '/calculators.html' },

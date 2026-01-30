@@ -47,6 +47,15 @@ const content = createElement(`
         </details>
       </div>
     </section>
+
+    <section class="section">
+      <h2>להמשך תכנון</h2>
+      <p>חזרו לסימולטור או בדקו את זמן ההחזר אחרי הלימודים.</p>
+      <div class="card__actions">
+        <a class="card__link" href="/calculators/study-vs-work-now.html">לסימולטור לימודים מול עבודה</a>
+        <a class="card__link card__link--secondary" href="/calculators/degree-roi-payback.html">מחשבון ROI לתואר</a>
+      </div>
+    </section>
   </div>
 `);
 

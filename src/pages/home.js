@@ -19,10 +19,10 @@ calculators.forEach((calc) => {
 
 const overviewSection = createElement(`
   <section class="section">
-    <h2>מחשבונים חכמים ללימודים וקריירה</h2>
+    <h2>המחשבונים המרכזיים</h2>
     <p>
-      האתר נבנה במיוחד לצעירים בישראל שרוצים להבין מה העלות האמיתית של לימודים,
-      כמה זמן לוקח להחזיר השקעה, ואיזה מסלול משתלם יותר בטווח של חמש שנים.
+      כאן תמצאו את חמשת המחשבונים החשובים ביותר לקבלת החלטה על לימודים, קורס או מסלול קריירה.
+      כל מחשבון ממוקד בשאלה אחת ברורה ומציג תוצאה מהירה עם הסברים.
     </p>
     <div class="card-grid"></div>
   </section>
@@ -30,9 +30,21 @@ const overviewSection = createElement(`
 
 overviewSection.querySelector('.card-grid').replaceWith(cardsGrid);
 
+const trustSection = createElement(`
+  <section class="section">
+    <h2>בלוק אמון: מה זה ולמי זה מתאים</h2>
+    <ul>
+      <li><strong>מה זה?</strong> מרכז מחשבונים חינמיים בעברית לתכנון עלות לימודים והחזר השקעה.</li>
+      <li><strong>למי זה?</strong> תלמידים, חיילים משוחררים, סטודנטים והורים שמחפשים תמונה כלכלית ברורה.</li>
+      <li><strong>הנחות כלליות:</strong> ההזנה שלכם היא הבסיס לחישוב, ללא נתונים חיצוניים או פרסום פעיל.</li>
+    </ul>
+    <div class="notice">המידע חינוכי בלבד ואינו מהווה ייעוץ פיננסי או תעסוקתי.</div>
+  </section>
+`);
+
 const audienceSection = createElement(`
   <section class="section">
-    <h2>למי זה מתאים?</h2>
+    <h2>למי זה מתאים במיוחד?</h2>
     <ul>
       <li>תיכוניסטים שמתלבטים בין מקצועות או מסלולים.</li>
       <li>חיילים משוחררים שרוצים להשוות לימודים מול עבודה עכשיו.</li>
@@ -50,7 +62,7 @@ const howItWorks = createElement(`
       <li>מקבלים תוצאה מידית עם טווחים שמרניים ואופטימיים.</li>
       <li>שומרים את ההזנה אוטומטית לחזרה מהירה בעתיד.</li>
     </ol>
-    <div class="notice">כל החישובים מקומיים בדפדפן, ללא איסוף נתונים אישי.</div>
+    <div class="notice">כל החישובים מקומיים בדפדפן בלבד, ללא איסוף מידע אישי.</div>
   </section>
 `);
 
@@ -58,9 +70,8 @@ const seoSection = createElement(`
   <section class="section">
     <h2>למה זה חשוב?</h2>
     <p>
-      החלטות לימודים הן השקעה ארוכת טווח. המחשבונים כאן עוזרים להבין את
-      התמונה הכלכלית לפני שמקבלים החלטה. לכל מחשבון יש גם מאמר קצר עם הנחות,
-      טיפים ושאלות נפוצות כדי שתדעו לפרש את התוצאה נכון.
+      החלטות לימודים הן השקעה ארוכת טווח. המחשבונים כאן עוזרים להבין את התמונה הכלכלית
+      לפני שמקבלים החלטה. לכל מחשבון יש גם מאמר קצר עם הנחות, טיפים ושאלות נפוצות.
     </p>
     <div class="card__actions">
       <a class="card__link" href="/calculators.html">לכל המחשבונים</a>
@@ -70,14 +81,18 @@ const seoSection = createElement(`
 `);
 
 const contentFragment = document.createDocumentFragment();
-contentFragment.append(overviewSection, audienceSection);
+contentFragment.append(overviewSection, trustSection);
 renderInlineAd(contentFragment);
-contentFragment.append(howItWorks, seoSection);
+contentFragment.append(audienceSection, howItWorks, seoSection);
 
 renderLayout({
-  title: 'מחשבוני ROI ללימודים וקריירה בישראל',
-  subtitle: 'תכנון כלכלי מדויק לפני שמחליטים על תואר, קורס או עבודה עכשיו.',
-  intro: 'כל מחשבון מותאם לישראל, בשפה פשוטה ועם הנחות ברורות. תוצאות מהירות, נוחות לנייד, ושמירת נתונים מקומית.',
-  highlight: 'אתר חינמי לצמיחה חכמה',
+  title: 'מחשבוני כדאיות לימודים וקריירה בישראל',
+  subtitle: 'כלים מהירים להשוואת עלות, החזר ושכר לפני שמתחייבים ללימודים.',
+  intro:
+    'כאן תמצאו מחשבונים בעברית שמראים כמה יעלו הלימודים באמת, תוך כמה זמן ההשקעה חוזרת ואיזה מסלול משתלם יותר. ' +
+    'כל חישוב מבוסס על ההזנה שלכם בלבד ומופעל מקומית בדפדפן. ' +
+    'אין איסוף נתונים אישיים ואין פרסומות פעילות בשלב זה. ' +
+    'השתמשו בתוצאות כבסיס לתכנון ושיחה עם גורמים מקצועיים.',
+  highlight: 'החלטות חכמות לפני הלימודים',
   content: contentFragment
 });

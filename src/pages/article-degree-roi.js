@@ -47,6 +47,15 @@ const content = createElement(`
         </details>
       </div>
     </section>
+
+    <section class="section">
+      <h2>להמשך תכנון</h2>
+      <p>חזרו למחשבון ה‑ROI או בדקו מסלולים נוספים להשוואה.</p>
+      <div class="card__actions">
+        <a class="card__link" href="/calculators/degree-roi-payback.html">למחשבון ROI</a>
+        <a class="card__link card__link--secondary" href="/calculators/path-comparison.html">מחשבון השוואת מסלולים</a>
+      </div>
+    </section>
   </div>
 `);
 

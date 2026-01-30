@@ -136,17 +136,29 @@ form.addEventListener('submit', (event) => {
   let conditionNote = '';
 
   if (salaryDelta <= 0) {
-    conditionNote = 'השכר אחרי הלימודים נמוך או שווה לשכר הנוכחי, ולכן הלימודים דורשים יתרון אחר (קיצור זמן או חיסכון גבוה יותר).';
+    conditionNote =
+      'השכר אחרי הלימודים נמוך או שווה לשכר הנוכחי, ולכן הלימודים דורשים יתרון אחר (קיצור זמן או חיסכון גבוה יותר).';
   } else {
     const monthsToCatchUp = incomeGap > 0 ? incomeGap / salaryDelta : 0;
-    conditionNote = `פער ההכנסה בזמן הלימודים הוא ${formatNIS(incomeGap)}. בהפרש שכר של ${formatNIS(salaryDelta)} נדרשים כ-${formatNumber(monthsToCatchUp, 1)} חודשים אחרי הלימודים כדי לסגור את הפער.`;
+    conditionNote = `פער ההכנסה בזמן הלימודים הוא ${formatNIS(
+      incomeGap
+    )}. בהפרש שכר של ${formatNIS(salaryDelta)} נדרשים כ-${formatNumber(
+      monthsToCatchUp,
+      1
+    )} חודשים אחרי הלימודים כדי לסגור את הפער.`;
   }
 
   resultPanel.querySelector('.result-panel__content').innerHTML = `
     <div class="result-grid">
-      <div class="result-item"><span>נקודת חצייה</span><strong>${crossover ? `${crossover} חודשים` : 'לא נמצאה ב-5 שנים'}</strong></div>
-      <div class="result-item"><span>תוצאה 5 שנים - עבודה עכשיו</span><strong>${formatNIS(workSim.wealth)}</strong></div>
-      <div class="result-item"><span>תוצאה 5 שנים - לימודים</span><strong>${formatNIS(studySim.wealth)}</strong></div>
+      <div class="result-item"><span>נקודת חצייה</span><strong>${
+        crossover ? `${crossover} חודשים` : 'לא נמצאה ב-5 שנים'
+      }</strong></div>
+      <div class="result-item"><span>תוצאה 5 שנים - עבודה עכשיו</span><strong>${formatNIS(
+        workSim.wealth
+      )}</strong></div>
+      <div class="result-item"><span>תוצאה 5 שנים - לימודים</span><strong>${formatNIS(
+        studySim.wealth
+      )}</strong></div>
     </div>
     <p class="field__hint">החישוב מניח חיסכון חודשי קבוע ומחשב תשואה חודשית מצטברת.</p>
     <div class="notice">${conditionNote}</div>
@@ -164,19 +176,72 @@ const content = createElement('<div class="calc-grid"></div>');
 const formSection = createElement('<section class="section"></section>');
 formSection.append(
   createElement('<h2>סימולטור לימודים מול עבודה</h2>'),
-  createElement('<p>השוואה בין עבודה מיידית לבין לימודים ואז עבודה עם שכר גבוה יותר.</p>'),
+  createElement('<p>תוך דקה תקבלו נקודת חצייה ותוצאות ל‑5 שנים עם או בלי תשואה על חיסכון.</p>'),
   form
 );
 
 const resultSection = createElement('<section class="section"></section>');
 resultSection.append(resultPanel);
 
-content.append(formSection, resultSection);
+const interpretationSection = createElement(`
+  <section class="section">
+    <h2>איך לפרש את התוצאות?</h2>
+    <p>
+      נקודת החצייה היא החודש שבו הערך המצטבר של הלימודים עובר את העבודה המיידית.
+      התוצאות ל‑5 שנים נותנות תמונת מצב בינונית כדי להבין את הכיוון.
+    </p>
+    <ul>
+      <li>אם אין נקודת חצייה, ייתכן שההפרש בשכר לא מספיק גבוה.</li>
+      <li>תשואה על חיסכון יכולה לשנות את התוצאה, במיוחד לטווח בינוני.</li>
+    </ul>
+  </section>
+`);
+
+const faqSection = createElement(`
+  <section class="section" id="faq">
+    <h2>שאלות נפוצות</h2>
+    <div class="faq">
+      <details>
+        <summary>מה אם איני חוסך בזמן הלימודים?</summary>
+        <p>הזינו חיסכון חודשי נמוך או אפסי כדי לקבל תרחיש שמרני יותר.</p>
+      </details>
+      <details>
+        <summary>האם תשואה שנתית היא חובה?</summary>
+        <p>לא. אפשר להשאיר את השדה ריק ולקבל חישוב ללא תשואה.</p>
+      </details>
+      <details>
+        <summary>איך לחשב אם הלימודים מתקצרים?</summary>
+        <p>עדכנו את משך הלימודים בחודשים כדי לראות כיצד נקודת החצייה משתנה.</p>
+      </details>
+      <details>
+        <summary>מה אם השכר אחרי הלימודים נמוך מהיום?</summary>
+        <p>במקרה כזה הלימודים ידרשו יתרון אחר כמו קיצור זמן או חיסכון גבוה יותר.</p>
+      </details>
+      <details>
+        <summary>למה נקודת החצייה חשובה?</summary>
+        <p>היא מציגה מתי ההשקעה בלימודים מתחילה להשתלם ביחס לעבודה מיידית.</p>
+      </details>
+    </div>
+  </section>
+`);
+
+const linksSection = createElement(`
+  <section class="section">
+    <h2>להמשך תכנון</h2>
+    <p>עברו למאמר ההסבר או בדקו את זמן ההחזר אחרי הלימודים.</p>
+    <div class="card__actions">
+      <a class="card__link" href="/articles/study-vs-work-now.html">מאמר לימודים מול עבודה</a>
+      <a class="card__link card__link--secondary" href="/calculators/degree-roi-payback.html">מחשבון ROI לתואר</a>
+    </div>
+  </section>
+`);
+
+content.append(formSection, resultSection, interpretationSection, faqSection, linksSection);
 
 renderLayout({
-  title: 'סימולטור לימודים מול עבודה עכשיו',
-  subtitle: 'בדקו מתי לימודים משתלמים יותר ומה התנאים שגורמים להם לנצח.',
-  intro: 'מחשב את נקודת החצייה ואת התוצאה ל-5 שנים כולל אפשרות לתשואה שנתית על חיסכון.',
+  title: 'ללמוד או לעבוד עכשיו?',
+  subtitle: 'סימולטור שמראה נקודת חצייה ותוצאה ל‑5 שנים.',
+  intro: 'השוו בין עבודה מיידית ללימודים עם שכר גבוה יותר בסוף התקופה.',
   breadcrumbs: [
     { label: 'דף הבית', href: '/' },
     { label: 'מחשבונים', href: '/calculators.html' },

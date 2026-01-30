@@ -25,11 +25,22 @@ npm run preview
 
 > האתר הוא Multi‑Page, לכן אין צורך בקובץ `_redirects` ל‑SPA.
 
-## עדכון כתובת אתר (SEO)
-לפני פריסה לדומיין סופי, החליפו את `https://example.com` בקבצים הבאים:
-- `public/sitemap.xml`
-- `public/robots.txt`
-- כל קובצי ה‑HTML בשורש, `calculators/` ו‑`articles/` (תגי `canonical` ו‑`og:url`).
+## SEO: משתני סביבה לכתובת האתר
+ה‑build יוצר `sitemap.xml` לפי `SITE_URL`, וה‑HTML משתמש ב‑`VITE_SITE_URL` עבור `canonical` ו‑`og:url`.
+הגדירו את שני המשתנים לאותו ערך.
+
+דוגמה מקומית (PowerShell):
+```powershell
+$env:SITE_URL="https://example.com"
+$env:VITE_SITE_URL="https://example.com"
+npm run build
+```
+
+ב‑Netlify:
+- Site settings → Environment variables
+- הוסיפו `SITE_URL` ו‑`VITE_SITE_URL` עם הדומיין הפעיל.
+
+אם המשתנים לא מוגדרים, יעשה שימוש ב‑`https://example.com` כברירת מחדל.
 
 ## הוספת מחשבון חדש
 1. צרו קובץ HTML חדש תחת `calculators/` והוסיפו אותו ל‑`vite.config.js`.
@@ -47,3 +58,4 @@ npm run preview
 - `src/pages` קבצי לוגיקה לכל עמוד
 - `src/lib` עזרי פורמט, אחסון, אימות
 - `public` קבצי SEO סטטיים
+- `scripts` סקריפטים לבנייה (למשל sitemap)
