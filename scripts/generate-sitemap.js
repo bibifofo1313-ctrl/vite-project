@@ -6,7 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
-const siteUrlRaw = process.env.SITE_URL || process.env.VITE_SITE_URL || 'https://example.com';
+const siteUrlRaw =
+  process.env.SITE_URL || process.env.VITE_SITE_URL || 'https://education-roi.netlify.app';
 const siteUrl = siteUrlRaw.replace(/\/+$/, '');
 const lastmod = new Date().toISOString().split('T')[0];
 
