@@ -20,7 +20,9 @@ export function renderHeader(currentPath = '/') {
     .map((link) => {
       const active = isActiveLink(link.href, currentPath);
       return `
-        <a class="nav__link${active ? ' is-active' : ''}" href="${link.href}">
+        <a class="nav__link${active ? ' is-active' : ''}" href="${link.href}" ${
+          active ? 'aria-current="page"' : ''
+        }>
           ${link.label}
         </a>
       `;
@@ -37,7 +39,7 @@ export function renderHeader(currentPath = '/') {
         <nav class="nav" aria-label="ניווט ראשי">
           ${navItems}
         </nav>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="מצב כהה">
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
           <span class="theme-toggle__icon" aria-hidden="true">◐</span>
           מצב כהה
         </button>

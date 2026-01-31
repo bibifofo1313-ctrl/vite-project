@@ -16,10 +16,14 @@ export function renderFormField({
   as = 'input',
   options = []
 }) {
+  const hintId = hint ? `${id}-hint` : '';
+  const errorId = `${id}-error`;
+  const describedBy = [hintId, errorId].filter(Boolean).join(' ');
   const inputAttributes = [
     `id="${id}"`,
     `name="${id}"`,
     `placeholder="${placeholder}"`,
+    describedBy ? `aria-describedby="${describedBy}"` : '',
     required ? 'required' : '',
     inputMode ? `inputmode="${inputMode}"` : ''
   ]
@@ -59,15 +63,18 @@ export function renderFormField({
         ${fieldControl}
         ${suffix ? `<span class="field__suffix">${suffix}</span>` : ''}
       </div>
-      ${hint ? `<span class="field__hint">${hint}</span>` : ''}
-      <span class="field__error" data-error-for="${id}" aria-live="polite"></span>
+      ${hint ? `<span class="field__hint" id="${hintId}">${hint}</span>` : ''}
+      <span class="field__error" data-error-for="${id}" id="${errorId}" aria-live="polite"></span>
     </label>
   `);
 }
 
 export function renderRadioGroup({ name, label, options = [], hint = '' }) {
+  const hintId = hint ? `${name}-hint` : '';
+  const errorId = `${name}-error`;
+  const describedBy = [hintId, errorId].filter(Boolean).join(' ');
   return createElement(`
-    <fieldset class="field field--radio">
+    <fieldset class="field field--radio" ${describedBy ? `aria-describedby="${describedBy}"` : ''}>
       <legend class="field__label">${label}</legend>
       <div class="field__radio">
         ${options
@@ -82,8 +89,8 @@ export function renderRadioGroup({ name, label, options = [], hint = '' }) {
           })
           .join('')}
       </div>
-      ${hint ? `<span class="field__hint">${hint}</span>` : ''}
-      <span class="field__error" data-error-for="${name}" aria-live="polite"></span>
+      ${hint ? `<span class="field__hint" id="${hintId}">${hint}</span>` : ''}
+      <span class="field__error" data-error-for="${name}" id="${errorId}" aria-live="polite"></span>
     </fieldset>
   `);
 }

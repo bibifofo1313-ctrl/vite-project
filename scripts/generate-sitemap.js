@@ -10,7 +10,14 @@ const siteUrlRaw = process.env.SITE_URL || process.env.VITE_SITE_URL || 'https:/
 const siteUrl = siteUrlRaw.replace(/\/+$/, '');
 const lastmod = new Date().toISOString().split('T')[0];
 
-const rootPages = ['/', '/calculators.html', '/about.html', '/privacy.html', '/terms.html'];
+const rootPages = [
+  '/',
+  '/calculators.html',
+  '/about.html',
+  '/privacy.html',
+  '/terms.html',
+  '/accessibility.html'
+];
 
 function listHtmlFiles(dir, basePath) {
   if (!fs.existsSync(dir)) {

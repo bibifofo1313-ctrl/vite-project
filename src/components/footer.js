@@ -16,6 +16,7 @@ export function renderFooter() {
         </div>
         <div class="footer__links" aria-label="קישורים תחתיים">
           ${links}
+          <a class="footer__link" href="/accessibility.html">נגישות</a>
         </div>
         <div class="footer__meta">© ${year} כל הזכויות שמורות</div>
       </div>

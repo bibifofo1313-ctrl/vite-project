@@ -2,6 +2,7 @@
 import { renderHeader } from '../components/header.js';
 import { renderFooter } from '../components/footer.js';
 import { renderAdSlot } from '../components/ad-slot.js';
+import { initAccessibilityMenu } from '../components/accessibility.js';
 import { initTheme, bindThemeToggle } from '../lib/theme.js';
 import { loadFormData, saveFormData } from '../lib/storage.js';
 import { collectFormData, hydrateFormData } from '../lib/validation.js';
@@ -41,6 +42,8 @@ export function renderLayout({
 
   const main = document.createElement('main');
   main.className = 'site-main';
+  main.id = 'main';
+  main.setAttribute('tabindex', '-1');
   main.innerHTML = `
     <section class="hero">
       <div class="container hero__inner">
@@ -79,6 +82,7 @@ export function renderLayout({
 
   app.append(header, main, footer);
   bindThemeToggle(header.querySelector('[data-theme-toggle]'));
+  initAccessibilityMenu();
 }
 
 export function attachFormPersistence(form, key) {

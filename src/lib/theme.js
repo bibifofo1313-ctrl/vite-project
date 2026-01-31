@@ -22,8 +22,8 @@ export function bindThemeToggle(button) {
 
   const setLabel = () => {
     const isDark = document.documentElement.dataset.theme === 'dark';
-    button.setAttribute('aria-label', isDark ? 'מעבר למצב בהיר' : 'מעבר למצב כהה');
     button.querySelector('.theme-toggle__icon').textContent = isDark ? '◑' : '◐';
+    button.setAttribute('aria-pressed', isDark ? 'true' : 'false');
   };
 
   setLabel();

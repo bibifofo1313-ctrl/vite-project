@@ -10,6 +10,7 @@ export default defineConfig({
         about: resolve(__dirname, 'about.html'),
         privacy: resolve(__dirname, 'privacy.html'),
         terms: resolve(__dirname, 'terms.html'),
+        accessibility: resolve(__dirname, 'accessibility.html'),
         calcTotal: resolve(__dirname, 'calculators/total-study-cost.html'),
         calcRoi: resolve(__dirname, 'calculators/degree-roi-payback.html'),
         calcPath: resolve(__dirname, 'calculators/path-comparison.html'),
